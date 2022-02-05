@@ -18,6 +18,13 @@ pipeline {
             steps {
              sh 'mvn package'
             }
-        }          
+        } 
+        stage ('Deploy') {
+            steps {
+              script {
+                      deploy adapters: [tomcat9(credentialsId: 'tomcat_credential', path: '', url: 'http://192.168.93.128:8080')], contextPath: '/pipeline', onFailure: false, war: 'webapp/target/*.war' 
+        }
+      }
+    }
     } 
 }
