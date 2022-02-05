@@ -1,27 +1,23 @@
-
-pipeline {
-       
+pipeline {  
        agent any
-   
-    stages {
-        
+       tools {
+              maven 'maven'
+       }
+    stages {       
         stage('Cleanup Workspace') {
             steps {
-                mvn clean
+               sh 'mvn clean'
             }
         }
-
-        stage('Code Checkout') {
+        stage('Code test') {
             steps {
-               mvn test
+              sh 'mvn test'
             }
         }
-
         stage('Code Build') {
             steps {
-                mvn site
+             sh 'mvn package'
             }
-        }
- 
-            }
-        }
+        }          
+    } 
+}
